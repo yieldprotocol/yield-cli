@@ -1,0 +1,25 @@
+export PRIVATE_KEY=`cat .secret`
+
+export NETWORK=rinkeby
+export ETH_RPC_URL="https://$NETWORK.infura.io/v3/c334bb4b45a444979057f0fb8a0c9d1b"
+export ADDRS=addrs.json
+
+export VAT=`cat $ADDRS | jq -r '.Vat'`
+
+export WETH=`cat $ADDRS | jq -r '.Weth'`
+export WETHJOIN=`cat $ADDRS | jq -r '.WethJoin'`
+
+export DAI=`cat $ADDRS | jq -r '.Dai'`
+export DAIJOIN=`cat $ADDRS | jq -r '.DaiJoin'`
+
+export UNISWAP=`cat $ADDRS | jq -r '.Uniswap'`
+export FLASH=`cat $ADDRS | jq -r '.Flash'`
+
+export LIQUIDATIONS=`cat $ADDRS | jq -r '.Liquidations'`
+export TREASURY=`cat $ADDRS | jq -r '.Treasury'`
+export CONTROLLER=`cat $ADDRS | jq -r '.Controller'`
+
+export YDAI0=`cat $ADDRS | jq -r '.yDai0'`
+export YDAI1=`cat $ADDRS | jq -r '.yDai1'`
+export YDAI2=`cat $ADDRS | jq -r '.yDai2'`
+export YDAI3=`cat $ADDRS | jq -r '.yDai3'`

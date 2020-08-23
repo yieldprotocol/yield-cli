@@ -9,7 +9,8 @@ const YDAI = [
     "function isMature() view returns(bool)",
     "function mature()",
     "function name() view returns (string)",
-    "function balanceOf(address) view returns (uint256)"
+    "function balanceOf(address) view returns (uint256)",
+    "function redeem(address, address, uint256)"
 ]
 
 const provider = new ethers.providers.JsonRpcProvider(URL);
@@ -28,6 +29,7 @@ const client = signer.connect(provider);
     const user = client.address
 
     let tx;
+    let value;
     const ydai = new ethers.Contract(process.env.YDAI, YDAI, client);
     const name = await ydai.name(); 
     const maturity = await ydai.maturity();
@@ -46,6 +48,12 @@ const client = signer.connect(provider);
         const address = (PARAM1 != '') ? PARAM1 : signer.address;
         const balance = ethers.utils.formatEther(await ydai.balanceOf(address));
         console.log(`Balance of ${address} is ${balance}`); 
+
+    } else if (FUNCTION == 'redeem') {
+        console.log(`Redeeming ${PARAM1} YDAI: ${name}`);
+        value = ethers.utils.parseEther(PARAM1);
+        tx = await ydai.redeem(signer.address, signer.address, value);
+        await tx.wait();
 
     } else {
         console.log(`YDAI: ${name} is ${msg}.\nMaturity:${maturity}\nCurrent Blockchain Time:${timestamp}`)

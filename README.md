@@ -34,10 +34,10 @@ Calling the script with no arguments prints your current debt stats
 
 After a yDai reaches maturity, it is available to be matured by calling the `mature()` function. 
 
-The example below will show whether a seeries is mature.
+The example below will show whether a series is mature.
 
-`YDAI=$YDAI0 ./src/mature.js`
+`YDAI=$YDAI0 ./src/ydai.js`
 
 To mature a series, call the script with the "mature" parameter.
 
-`YDAI=$YDAI0 ./src/mature.js mature`
+`YDAI=$YDAI0 ./src/ydai.js mature`

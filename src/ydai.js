@@ -8,7 +8,8 @@ const YDAI = [
     "function maturity() view returns (uint256)",
     "function isMature() view returns(bool)",
     "function mature()",
-    "function name() view returns (string)"
+    "function name() view returns (string)",
+    "function balanceOf(address) view returns (uint256)"
 ]
 
 const provider = new ethers.providers.JsonRpcProvider(URL);
@@ -22,8 +23,8 @@ const client = signer.connect(provider);
 
 
 (async () => {
-    const MATURE = process.argv[2] || ''
-    //const DAI_AMT = process.argv[3] || ''
+    const FUNCTION = process.argv[2] || ''
+    const PARAM1 = process.argv[3] || ''
     const user = client.address
 
     let tx;
@@ -36,11 +37,16 @@ const client = signer.connect(provider);
     const timestamp = (await provider.getBlock(block)).timestamp;
 
 
-    if (MATURE == 'mature'){
+    if (FUNCTION == 'mature'){
         console.log(`Maturing YDAI: ${name}`);
         tx = await ydai.mature();
         await tx.wait();
         console.log(`YDAI: ${name} is ${msg}.\nMaturity:${maturity}\nCurrent Blockchain Time:${timestamp}`)
+    } else if (FUNCTION == 'balanceOf') {
+        const address = (PARAM1 != '') ? PARAM1 : signer.address;
+        const balance = ethers.utils.formatEther(await ydai.balanceOf(address));
+        console.log(`Balance of ${address} is ${balance}`); 
+
     } else {
         console.log(`YDAI: ${name} is ${msg}.\nMaturity:${maturity}\nCurrent Blockchain Time:${timestamp}`)
     }

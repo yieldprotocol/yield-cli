@@ -29,3 +29,15 @@ environment variable. The example below will borrow from YDAI0.
 `YDAI=$YDAI0 ./src/control.js <ETH amount to post> <yDAI amount to draw>`
 
 Calling the script with no arguments prints your current debt stats
+
+## Maturing yDAI 
+
+After a yDai reaches maturity, it is available to be matured by calling the `mature()` function. 
+
+The example below will show whether a series is mature.
+
+`YDAI=$YDAI0 ./src/ydai.js`
+
+To mature a series, call the script with the "mature" parameter.
+
+`YDAI=$YDAI0 ./src/ydai.js mature`

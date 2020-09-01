@@ -1,7 +1,7 @@
 export PRIVATE_KEY=`cat .secret`
 
 export NETWORK=rinkeby
-export ETH_RPC_URL="https://$NETWORK.infura.io/v3/c334bb4b45a444979057f0fb8a0c9d1b"
+export ETH_RPC_URL="https://$NETWORK.infura.io/v3/fd8b88b56aa84f6da87b60f5441d6778"
 export ADDRS=addrs.json
 
 export VAT=`cat $ADDRS | jq -r '.Vat'`

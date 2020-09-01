@@ -6,6 +6,16 @@ You can manually set the addresses for the contracts as well as the RPC URLs and
 key. Alternatively, you may run `source config` in your terminal to load all the necessary environment
 variables.
 
+## Installation
+
+```
+git clone git@github.com:yieldprotocol/yield-cli.git
+yarn
+source config
+```
+
+Run any of the scripts under `./src`
+
 ## Manipulating ETH price on Maker
 
 Run `./src/set_eth_price.js <ETH price in USD>`. This will set the spot price in the `Vat` contract.
@@ -41,3 +51,16 @@ The example below will show whether a series is mature.
 To mature a series, call the script with the "mature" parameter.
 
 `YDAI=$YDAI0 ./src/ydai.js mature`
+
+## Initialize Pools
+
+After deployment, you want to init the pools. This script will mint DAI to your address, approve it
+and then send it to the pool via its `init` function. Note that the pool obtains its original yDAI by buying
+it from users, so the initial `mint` calls will only require DAI.
+
+```
+POOL=$POOL0 ./src/init_pool.js
+POOL=$POOL1 ./src/init_pool.js
+POOL=$POOL2 ./src/init_pool.js
+POOL=$POOL3 ./src/init_pool.js
+```

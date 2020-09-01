@@ -23,3 +23,8 @@ export YDAI0=`cat $ADDRS | jq -r '.yDai0'`
 export YDAI1=`cat $ADDRS | jq -r '.yDai1'`
 export YDAI2=`cat $ADDRS | jq -r '.yDai2'`
 export YDAI3=`cat $ADDRS | jq -r '.yDai3'`
+
+export POOL0=`cat $ADDRS | jq -r '.["yDai-t0-Pool"]'`
+export POOL1=`cat $ADDRS | jq -r '.["yDai-t1-Pool"]'`
+export POOL2=`cat $ADDRS | jq -r '.["yDai-t2-Pool"]'`
+export POOL3=`cat $ADDRS | jq -r '.["yDai-t3-Pool"]'`

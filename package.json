@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "ethers": "^5.0.8"
+    "ethers": "^5.0.8",
+    "mathjs": "^7.3.0"
   }
 }

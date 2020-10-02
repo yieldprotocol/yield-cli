@@ -64,3 +64,12 @@ POOL=$POOL1 ./src/init_pool.js
 POOL=$POOL2 ./src/init_pool.js
 POOL=$POOL3 ./src/init_pool.js
 ```
+
+## Calculate Interest Rates
+
+Calculate the interest rates for any trade in the pool. Enter token amounts in ether units.
+
+```
+node sellDai|buyDai|sellFYDai|buyFYDai fyDaiReserves daiReserves timeTillMaturity tradeSize
+> node pool_trade.js buyEDai 132.32 66.465 31556905 1
+```

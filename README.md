@@ -83,9 +83,8 @@ Initialize a pool by providing Dai
 8. Execute `init_pool.js` with the pool address and the liquidity in Dai
 
 ```
-~/yield-cli$ ./src/init_pool.js 0xE36d789E550aCA906972Ee12240FFf43190A1f5D 1
-Initializing 0xE36d789E550aCA906972Ee12240FFf43190A1f5D
-Dai transfer approved 0xfd98ec52e728802d081345b6a9b57e86ea20ae157961d0f9c4a491ab03147b34
-Pool initialized 0x62d643f5cb763e559bb582cebc8504c6a9bd6729b29eaf47a72561aa5d124146
-
+~/yield-cli$ ./src/init_pool.js --pool fyDai20Dec31 --dai 1
+Initializing 0x3Aa46a2456511730553A9201418C1a86078c6F7e
+Dai transfer approved 0xd75f419128055796b9d699784e165a0070afc662231fb5728ddc7c1b80619ec9
+Pool initialized 0xa87a9d531074ab077a922deb4427fb7593c45614a4f5552147f9f0c25d3b2707
 ```

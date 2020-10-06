@@ -5,7 +5,7 @@ const { BigNumber, ethers } = require('ethers')
 const URL = process.env.ETH_RPC_URL
 const ILK = ethers.utils.formatBytes32String("ETH-A")
 
-const YDAI = [
+const FYDAI = [
     "function maturity() view returns (uint256)",
 ]
 
@@ -43,7 +43,7 @@ if (!privateKey.startsWith("0x")) {
 const signer = new ethers.Wallet(privateKey)
 const client = signer.connect(provider);
 
-// Borrows yDAI against ETH
+// Borrows fyDai against ETH
 (async () => {
     const WETH_AMT = process.argv[2] || 0
     const DAI_AMT = process.argv[3] || 0
@@ -81,8 +81,8 @@ const client = signer.connect(provider);
 
     // open the position
     if (DAI_AMT > 0) {
-        const ydai = new ethers.Contract(process.env.YDAI, YDAI, client)
-        const maturity = await ydai.maturity();
+        const fyDai = new ethers.Contract(process.env.FYDAI, FYDAI, client)
+        const maturity = await fyDai.maturity();
         value = ethers.utils.parseEther(DAI_AMT);
         tx = await controller.borrow(ILK, maturity, user, user, value, { from: user });
         await tx.wait()

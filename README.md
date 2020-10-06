@@ -31,38 +31,33 @@ increasing the DAI reserves relative to the ETH reserves.
 The amount is internally converted to wei, so to supply `1 DAI`, you'd call `./fund_uniswap 0 1`.
 Calling the script with no arguments prints the current uniswap reserves for the WETH/DAI pair.
 
-## Borrowing yDAI & posting ETH collaterael
+## Borrowing fyDai & posting ETH collateral
 
-Since there's multiple yDAI deployments, you must choose one by setting the `YDAI`
-environment variable. The example below will borrow from YDAI0.
+Since there's multiple fyDai deployments, you must choose one by setting the `FYDAI`
+environment variable. The example below will borrow from FYDAI0.
 
-`YDAI=$YDAI0 ./src/control.js <ETH amount to post> <yDAI amount to draw>`
+`FYDAI=$FYDAI0 ./src/control.js <ETH amount to post> <fyDai amount to draw>`
 
 Calling the script with no arguments prints your current debt stats
 
-## Maturing yDAI 
+## Maturing fyDai 
 
-After a yDai reaches maturity, it is available to be matured by calling the `mature()` function. 
+After a fyDai reaches maturity, it is available to be matured by calling the `mature()` function. 
 
 The example below will show whether a series is mature.
 
-`YDAI=$YDAI0 ./src/ydai.js`
+`FYDAI=$FYDAI0 ./src/fyDai.js`
 
 To mature a series, call the script with the "mature" parameter.
 
-`YDAI=$YDAI0 ./src/ydai.js mature`
+`FYDAI=$FYDAI0 ./src/fyDai.js mature`
 
-## Initialize Pools
+## Calculating interest rates
 
-After deployment, you want to init the pools. This script will mint DAI to your address, approve it
-and then send it to the pool via its `init` function. Note that the pool obtains its original yDAI by buying
-it from users, so the initial `mint` calls will only require DAI.
+To calculate the output of any potential trade, call the `pool_trade.js` script.
 
 ```
-POOL=$POOL0 ./src/init_pool.js
-POOL=$POOL1 ./src/init_pool.js
-POOL=$POOL2 ./src/init_pool.js
-POOL=$POOL3 ./src/init_pool.js
+'node pool_trade.js sellDai|buyDai|sellFYDai|buyFYDai fyDaiReserves daiReserves timeTillMaturity tradeSize'
 ```
 
 ## Calculate Interest Rates

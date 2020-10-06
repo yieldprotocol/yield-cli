@@ -2,8 +2,8 @@
 
 const { bignumber, add, subtract, multiply, pow } = require("mathjs")
 
-const buyEDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
-    const Y = bignumber(eDaiReserves)
+const buyFYDai = (fyDaiReserves, daiReserves, timeTillMaturity, dai) => {
+    const Y = bignumber(fyDaiReserves)
     const Z = bignumber(daiReserves)
     const T = bignumber(timeTillMaturity)
     const x = bignumber(dai)
@@ -31,8 +31,8 @@ const buyEDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
     return y
 };
 
-const sellDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
-    const Y = bignumber(eDaiReserves)
+const sellDai = (fyDaiReserves, daiReserves, timeTillMaturity, dai) => {
+    const Y = bignumber(fyDaiReserves)
     const Z = bignumber(daiReserves)
     const T = bignumber(timeTillMaturity)
     const x = bignumber(dai)
@@ -60,8 +60,8 @@ const sellDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
     return y
 };
 
-const buyDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
-    const Y = bignumber(eDaiReserves)
+const buyDai = (fyDaiReserves, daiReserves, timeTillMaturity, dai) => {
+    const Y = bignumber(fyDaiReserves)
     const Z = bignumber(daiReserves)
     const T = bignumber(timeTillMaturity)
     const x = bignumber(dai)
@@ -89,8 +89,8 @@ const buyDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
     return y
 };
 
-const sellEDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
-    const Y = bignumber(eDaiReserves)
+const sellFYDai = (fyDaiReserves, daiReserves, timeTillMaturity, dai) => {
+    const Y = bignumber(fyDaiReserves)
     const Z = bignumber(daiReserves)
     const T = bignumber(timeTillMaturity)
     const x = bignumber(dai)
@@ -120,19 +120,12 @@ const sellEDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
 
 
 (async () => {
-    /*
-    if (process.argv[2] === undefined) {
-        console.log("No amount specified for Vat")
-        return
-    }
-    */
-
     switch (process.argv[2]) {
-        case 'buyEDai':
+        case 'buyFYDai':
             console.log()
-            console.log('buyEDai:')
+            console.log('buyFYDai:')
             console.log('--------')
-            console.log(buyEDai(process.argv[3], process.argv[4], process.argv[5], process.argv[6]))        
+            console.log(buyFYDai(process.argv[3], process.argv[4], process.argv[5], process.argv[6]))        
             break
         case 'sellDai':
             console.log()
@@ -146,13 +139,13 @@ const sellEDai = (eDaiReserves, daiReserves, timeTillMaturity, dai) => {
             console.log('--------')
             console.log(buyDai(process.argv[3], process.argv[4], process.argv[5], process.argv[6]))        
             break
-        case 'sellEDai':
+        case 'sellFYDai':
             console.log()
-            console.log('sellEDai:')
+            console.log('sellFYDai:')
             console.log('--------')
-            console.log(sellEDai(process.argv[3], process.argv[4], process.argv[5], process.argv[6]))        
+            console.log(sellFYDai(process.argv[3], process.argv[4], process.argv[5], process.argv[6]))        
             break
         default:
-            console.log('node sellDai|buyDai|sellFYDai|buyFYDai fyDaiReserves daiReserves timeTillMaturity tradeSize')
+            console.log('node pool_trade.js sellDai|buyDai|sellFYDai|buyFYDai fyDaiReserves daiReserves timeTillMaturity tradeSize')
     }
 })()

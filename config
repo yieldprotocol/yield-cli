@@ -20,24 +20,9 @@ export LIQUIDATIONS=`cat $ADDRS | jq -r '.Liquidations'`
 export TREASURY=`cat $ADDRS | jq -r '.Treasury'`
 export CONTROLLER=`cat $ADDRS | jq -r '.Controller'`
 
-export FYDAI0=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI1=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 2 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI2=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 3 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI3=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 4 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI4=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 5 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI5=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 6 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI6=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 7 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI7=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 8 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI8=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 9 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-export FYDAI9=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 10 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+set pools=`cat $ADDRS | json_pp | grep fyDaiLP | wc -l`
 
-export POOL0=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL1=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 2 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL2=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 3 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL3=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 4 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL4=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 5 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL5=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 6 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL6=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 7 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL7=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 8 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL8=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 9 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
-export POOL9=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 10 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+for i in `seq 1 $pools`; do
+    export FYDAI$i=`cat $ADDRS | json_pp | grep fy | grep -v LP | sort | head -n $i | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+    export POOL$i=`cat $ADDRS | json_pp | grep fyDaiLP | sort | head -n $i | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+done

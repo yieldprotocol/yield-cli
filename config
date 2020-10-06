@@ -20,9 +20,26 @@ export LIQUIDATIONS=`cat $ADDRS | jq -r '.Liquidations'`
 export TREASURY=`cat $ADDRS | jq -r '.Treasury'`
 export CONTROLLER=`cat $ADDRS | jq -r '.Controller'`
 
-set pools=`cat $ADDRS | json_pp | grep fyDaiLP | wc -l`
+lpName() {
+    cat $ADDRS | json_pp | grep fyDaiLP | sort | head -n $1 | tail -n 1 | sed 's/" .*//' | sed 's/^.*"//'
+}
+
+lpAddress() {
+    cat $ADDRS | json_pp | grep fyDaiLP | sort | head -n $1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'
+}
+
+fyName() {
+    cat $ADDRS | json_pp | grep fy | grep -v LP | sort | head -n $1 | tail -n 1 | sed 's/" .*//' | sed 's/^.*"//'
+}
+
+fyAddress() {
+    cat $ADDRS | json_pp | grep fy | grep -v LP | sort | head -n $1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'
+}
+
+pools=`cat $ADDRS | json_pp | grep fyDaiLP | wc -l`
+echo $pools
 
 for i in `seq 1 $pools`; do
-    export FYDAI$i=`cat $ADDRS | json_pp | grep fy | grep -v LP | sort | head -n $i | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
-    export POOL$i=`cat $ADDRS | json_pp | grep fyDaiLP | sort | head -n $i | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+    export `lpName $i`=`lpAddress $i`
+    export `fyName $i`=`fyAddress $i`
 done

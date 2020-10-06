@@ -27,12 +27,27 @@ const client = signer.connect(provider)
 const dai = new ethers.Contract(process.env.DAI, ERC20, client)
 
 ;(async () => {
-    // ./init_pool poolAddress daiAmount
-    const poolAddress = process.argv[2]
-    const pool = new ethers.Contract(poolAddress, POOL, client)
-    
-    const daiAmount = process.argv[3]
-    const amt = ethers.utils.parseEther(daiAmount)
+    // ./pool_init --pool [pool address] --dai [dai amount]
+    let pool
+    const poolParameterIndex = process.argv.indexOf('--pool') + 1
+
+    if (poolParameterIndex > 0 ){
+        poolAddress = process.env[process.argv[poolParameterIndex]]
+        pool = new ethers.Contract(poolAddress, POOL, client)
+    }
+    else {
+        console.log("Specify pool symbol with --pool")
+        return
+    }
+
+    let daiAmount
+    const daiParameterIndex = process.argv.indexOf('--dai') + 1
+    if (daiParameterIndex > 0 )
+        daiAmount = ethers.utils.parseEther(process.argv[daiParameterIndex])
+    else {
+        console.log("Specify dai liquidity with --dai")
+        return
+    }
     
     const addr = client.address;
     console.log("Initializing", pool.address)
@@ -46,18 +61,18 @@ const dai = new ethers.Contract(process.env.DAI, ERC20, client)
 
     let tx;
     const daiBalance = await dai.balanceOf(addr);
-    if (daiBalance.lt(amt)) {
+    if (daiBalance.lt(daiAmount)) {
         console.log("Not enough dai")
         return
     }
 
     const allowance = await dai.allowance(addr, pool.address);
-    if (allowance.lt(amt)) {
-        tx = await dai.approve(pool.address, amt, { nonce: nonce })
+    if (allowance.lt(daiAmount)) {
+        tx = await dai.approve(pool.address, daiAmount, { nonce: nonce })
         console.log("Dai transfer approved", tx.hash)
         nonce += 1
     }
 
-    tx = await pool.init(amt, { gasLimit: 3e6, nonce: nonce })
+    tx = await pool.init(daiAmount, { gasLimit: 3e6, nonce: nonce })
     console.log("Pool initialized", tx.hash)
 })()

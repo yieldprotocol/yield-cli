@@ -68,3 +68,24 @@ Calculate the interest rates for any trade in the pool. Enter token amounts in e
 node sellDai|buyDai|sellFYDai|buyFYDai fyDaiReserves daiReserves timeTillMaturity tradeSize
 > node pool_trade.js buyEDai 132.32 66.465 31556905 1
 ```
+
+## Initialize Pools
+
+Initialize a pool by providing Dai
+
+1. Obtain the `addrs.json` file with the contract addresses.
+2. Edit config with the right network and `addrs.json` file.
+3. Make sure you have a `.infuraKey` file with a infura project id.
+4. Make sure you have a `.secret` file with your private key (not mnemonic).
+5. Make sure you have enough Dai.
+6. Execute `source config`.
+7. Copy the intended pool address from `addrs.json`.
+8. Execute `init_pool.js` with the pool address and the liquidity in Dai
+
+```
+~/yield-cli$ ./src/init_pool.js 0xE36d789E550aCA906972Ee12240FFf43190A1f5D 1
+Initializing 0xE36d789E550aCA906972Ee12240FFf43190A1f5D
+Dai transfer approved 0xfd98ec52e728802d081345b6a9b57e86ea20ae157961d0f9c4a491ab03147b34
+Pool initialized 0x62d643f5cb763e559bb582cebc8504c6a9bd6729b29eaf47a72561aa5d124146
+
+```

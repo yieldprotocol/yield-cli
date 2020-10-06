@@ -1,7 +1,8 @@
 export PRIVATE_KEY=`cat .secret`
+export INFURA_KEY=`cat .infuraKey`
 
-export NETWORK=rinkeby
-export ETH_RPC_URL="https://$NETWORK.infura.io/v3/fd8b88b56aa84f6da87b60f5441d6778"
+export NETWORK=kovan
+export ETH_RPC_URL="https://$NETWORK.infura.io/v3/$INFURA_KEY"
 export ADDRS=addrs.json
 
 export VAT=`cat $ADDRS | jq -r '.Vat'`
@@ -19,12 +20,24 @@ export LIQUIDATIONS=`cat $ADDRS | jq -r '.Liquidations'`
 export TREASURY=`cat $ADDRS | jq -r '.Treasury'`
 export CONTROLLER=`cat $ADDRS | jq -r '.Controller'`
 
-export FYDAI0=`cat $ADDRS | jq -r '.fyDai0'`
-export FYDAI1=`cat $ADDRS | jq -r '.fyDai1'`
-export FYDAI2=`cat $ADDRS | jq -r '.fyDai2'`
-export FYDAI3=`cat $ADDRS | jq -r '.fyDai3'`
+export FYDAI0=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI1=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 2 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI2=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 3 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI3=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 4 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI4=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 5 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI5=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 6 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI6=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 7 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI7=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 8 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI8=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 9 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
+export FYDAI9=`cat $ADDRS | json_pp | grep fy | grep -v LP | head -n 10 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'`
 
-export POOL0=`cat $ADDRS | jq -r '.["fyDai-t0-Pool"]'`
-export POOL1=`cat $ADDRS | jq -r '.["fyDai-t1-Pool"]'`
-export POOL2=`cat $ADDRS | jq -r '.["fyDai-t2-Pool"]'`
-export POOL3=`cat $ADDRS | jq -r '.["fyDai-t3-Pool"]'`
+export POOL0=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL1=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 2 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL2=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 3 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL3=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 4 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL4=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 5 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL5=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 6 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL6=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 7 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL7=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 8 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL8=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 9 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`
+export POOL9=`cat $ADDRS | json_pp | grep fyDaiLP | head -n 10 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'`

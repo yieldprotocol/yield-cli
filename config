@@ -1,9 +1,11 @@
 export PRIVATE_KEY=`cat .secret`
 
-export NETWORK=rinkeby
-export ETH_RPC_URL="https://$NETWORK.infura.io/v3/fd8b88b56aa84f6da87b60f5441d6778"
+export START_BLOCK=11014948
+export NETWORK=mainnet
+export ETH_RPC_URL="https://$NETWORK.infura.io/v3/$INFURA_KEY"
 export ADDRS=addrs.json
 
+export MIGRATIONS=`cat $ADDRS | jq -r '.Migrations'`
 export VAT=`cat $ADDRS | jq -r '.Vat'`
 
 export WETH=`cat $ADDRS | jq -r '.Weth'`
@@ -24,7 +26,21 @@ export FYDAI1=`cat $ADDRS | jq -r '.fyDai1'`
 export FYDAI2=`cat $ADDRS | jq -r '.fyDai2'`
 export FYDAI3=`cat $ADDRS | jq -r '.fyDai3'`
 
-export POOL0=`cat $ADDRS | jq -r '.["fyDai-t0-Pool"]'`
-export POOL1=`cat $ADDRS | jq -r '.["fyDai-t1-Pool"]'`
-export POOL2=`cat $ADDRS | jq -r '.["fyDai-t2-Pool"]'`
-export POOL3=`cat $ADDRS | jq -r '.["fyDai-t3-Pool"]'`
+lpAddress() {
+    cat $ADDRS | json_pp | grep fyDaiLP | sort | head -n $1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'
+}
+
+fyName() {
+    cat $ADDRS | json_pp | grep fy | grep -v LP | sort | head -n $1 | tail -n 1 | sed 's/" .*//' | sed 's/^.*"//'
+}
+
+fyAddress() {
+    cat $ADDRS | json_pp | grep fy | grep -v LP | sort | head -n $1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/",//'
+}
+
+pools=`cat $ADDRS | json_pp | grep fyDaiLP | wc -l`
+
+for i in `seq 1 $pools`; do
+    export `lpName $i`=`lpAddress $i`
+    export `fyName $i`=`fyAddress $i`
+done

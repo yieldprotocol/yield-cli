@@ -1,10 +1,12 @@
 export PRIVATE_KEY=`cat .secret`
 export INFURA_KEY=`cat .infuraKey`
 
-export NETWORK=kovan
+export START_BLOCK=11014948
+export NETWORK=mainnet
 export ETH_RPC_URL="https://$NETWORK.infura.io/v3/$INFURA_KEY"
 export ADDRS=addrs.json
 
+export MIGRATIONS=`cat $ADDRS | jq -r '.Migrations'`
 export VAT=`cat $ADDRS | jq -r '.Vat'`
 
 export WETH=`cat $ADDRS | jq -r '.Weth'`
@@ -37,7 +39,6 @@ fyAddress() {
 }
 
 pools=`cat $ADDRS | json_pp | grep fyDaiLP | wc -l`
-echo $pools
 
 for i in `seq 1 $pools`; do
     export `lpName $i`=`lpAddress $i`

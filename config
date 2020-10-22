@@ -1,6 +1,6 @@
 export PRIVATE_KEY=`cat .secret`
 
-export START_BLOCK=11014948
+export START_BLOCK=11065103
 export NETWORK=mainnet
 export ETH_RPC_URL="https://$NETWORK.infura.io/v3/$INFURA_KEY"
 export ADDRS=addrs.json
@@ -20,11 +20,11 @@ export FLASH=`cat $ADDRS | jq -r '.Flash'`
 export LIQUIDATIONS=`cat $ADDRS | jq -r '.Liquidations'`
 export TREASURY=`cat $ADDRS | jq -r '.Treasury'`
 export CONTROLLER=`cat $ADDRS | jq -r '.Controller'`
+export PROXY=`cat $ADDRS | jq -r '.YieldProxy'`
 
-export FYDAI0=`cat $ADDRS | jq -r '.fyDai0'`
-export FYDAI1=`cat $ADDRS | jq -r '.fyDai1'`
-export FYDAI2=`cat $ADDRS | jq -r '.fyDai2'`
-export FYDAI3=`cat $ADDRS | jq -r '.fyDai3'`
+lpName() {
+    cat $ADDRS | json_pp | grep fyDaiLP | sort | head -n $1 | tail -n 1 | sed 's/" .*//' | sed 's/^.*"//'
+}
 
 lpAddress() {
     cat $ADDRS | json_pp | grep fyDaiLP | sort | head -n $1 | tail -n 1 | sed 's/.*:\ "//' | sed 's/".*//'

@@ -114,17 +114,19 @@ const removeLiquidity = (fyDaiReserves, realFYDaiReserves, daiReserves, supply, 
     const timeToMaturity = (Math.floor(await fyDai.maturity() - (Date.now() / 1000))).toString()
     const userBalance = (await pool.balanceOf(USER)).toString()
 
-    const obtainedDai = removeLiquidity(
-        fyDaiReserves,
-        fyDaiRealReserves,
-        daiReserves,
-        tokenSupply,
-        timeToMaturity,
-        userBalance,
-    ).toString().split('.')[0]
     console.log(`${name}`)
     console.log(`User Balance:       ${fmtEth(userBalance)}`)
-    console.log(`Value in Dai:       ${fmtEth(obtainedDai)}`)
+    if (userBalance !== '0') {
+        const obtainedDai = removeLiquidity(
+            fyDaiReserves,
+            fyDaiRealReserves,
+            daiReserves,
+            tokenSupply,
+            timeToMaturity,
+            userBalance,
+        ).toString().split('.')[0]
+        console.log(`Value in Dai:       ${fmtEth(obtainedDai)}`)
+    }
     console.log()
   }
 })()

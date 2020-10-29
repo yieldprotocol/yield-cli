@@ -15,7 +15,8 @@
 // - fyDaiLP21Sep: The address of the fyDaiLP21Sep contract
 // - fyDaiLP21Dec: The address of the fyDaiLP21Dec contract
 const { ethers, BigNumber } = require('ethers')
-const { bignumber, add, subtract, multiply, pow } = require("mathjs")
+const { bignumber, add, subtract, multiply, pow } = require('mathjs')
+const { removeLiquidity } = require('./pool_trade')
 const fmtEth = ethers.utils.formatEther
 
 // defaults to the infura node
@@ -66,37 +67,6 @@ const FYDAI_ABI = [
     "function maturity() view returns (uint256)",
     "function balanceOf(address) view returns (uint256)",
 ]
-
-const sellFYDai = (fyDaiReserves, daiReserves, timeTillMaturity, fyDai) => {
-    const Y = bignumber(fyDaiReserves)
-    const Z = bignumber(daiReserves)
-    const T = bignumber(timeTillMaturity)
-    const x = bignumber(fyDai)
-    const k = bignumber(1/(4 * 365 * 24 * 60 * 60))    // 1 / seconds in four years
-    const g = bignumber(1000/950)
-    const t = multiply(k, T)
-    const a = subtract(1, multiply(g, t))
-    const Za = pow(Z, a)
-    const Ya = pow(Y, a)
-    const Yxa = pow(add(Y, x), a)
-    const y = subtract(Z, pow(add(Za, subtract(Ya, Yxa)), bignumber(1 / a)))
-
-    return y
-};
-
-const removeLiquidity = (fyDaiReserves, realFYDaiReserves, daiReserves, supply, timeTillMaturity, tokens) => {
-    const Y = bignumber(fyDaiReserves)
-    const RY = bignumber(realFYDaiReserves)
-    const Z = bignumber(daiReserves)
-    const x = bignumber(tokens)
-    const s = bignumber(supply)
-    const dai = x.mul(Z).div(s)
-    const fyDai = x.mul(RY).div(s)
-    const boughtDai = sellFYDai(Y.sub(fyDai), Z.sub(dai), timeTillMaturity, fyDai)
-    const total = dai.add(boughtDai)
-
-    return total
-};
 
 ;(async () => {
   const provider = new ethers.providers.JsonRpcProvider(ENDPOINT)

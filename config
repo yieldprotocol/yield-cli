@@ -2,7 +2,7 @@ export PRIVATE_KEY=`cat .secret`
 export INFURA_KEY=`cat .infuraKey`
 
 export START_BLOCK=11065103
-export NETWORK=mainnet
+export NETWORK=kovan
 export ETH_RPC_URL="https://$NETWORK.infura.io/v3/$INFURA_KEY"
 export ADDRS=addrs.json
 
@@ -22,6 +22,7 @@ export LIQUIDATIONS=`cat $ADDRS | jq -r '.Liquidations'`
 export TREASURY=`cat $ADDRS | jq -r '.Treasury'`
 export CONTROLLER=`cat $ADDRS | jq -r '.Controller'`
 export PROXY=`cat $ADDRS | jq -r '.YieldProxy'`
+export PROXYREGISTRY=`cat $ADDRS | jq -r '.ProxyRegistry'`
 
 lpName() {
     cat $ADDRS | json_pp | grep fyDaiLP | sort | head -n $1 | tail -n 1 | sed 's/" .*//' | sed 's/^.*"//'
